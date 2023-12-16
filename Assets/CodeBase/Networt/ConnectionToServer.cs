@@ -10,12 +10,16 @@ public class ConnectionToServer : MonoBehaviourPunCallbacks
     public static ConnectionToServer Instance;
     [SerializeField] private TMP_InputField inputRoomName;
     [SerializeField] private TMP_Text roomName;
+
     [SerializeField] private Transform transformRoomList;
     [SerializeField] private GameObject RoomItemPref;
+
     [SerializeField] private GameObject playerListItem;
     [SerializeField] private Transform transformPlayerList;
 
-  
+    [SerializeField] private GameObject startGameButton;
+
+    
     void Awake()
     {
         Instance = this;
@@ -34,6 +38,10 @@ public class ConnectionToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         WindowManager.Layout.OpenLayout("GameRoom");
+
+        if (PhotonNetwork.IsMasterClient) startGameButton.SetActive(true);
+        else startGameButton.SetActive(false);
+
         roomName.text = PhotonNetwork.CurrentRoom.Name;
 
         Player[] players = PhotonNetwork.PlayerList;
@@ -49,6 +57,7 @@ public class ConnectionToServer : MonoBehaviourPunCallbacks
 
 
     }
+
 
     public void LeaveRoom()
     {
@@ -75,7 +84,6 @@ public class ConnectionToServer : MonoBehaviourPunCallbacks
 
     }
 
-    //this
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (Transform trans in transformRoomList)
@@ -89,14 +97,20 @@ public class ConnectionToServer : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnJoinRoom(RoomInfo info)
+    public void JoinRoom(RoomInfo info)
     {
         PhotonNetwork.JoinRoom(info.Name);
+        Debug.Log("JoinRoom");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Instantiate(playerListItem, transformPlayerList).GetComponent<PlayerListItem>().SetUp(newPlayer);
+    }
+
+    public void ConnectedToRandomRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
     }
 
 }

@@ -17,6 +17,6 @@ public class RoomItem : MonoBehaviourPunCallbacks
 
     public void OnClick()
     {
-        ConnectionToServer.Instance.OnJoinRoom(this.info);
+        ConnectionToServer.Instance.JoinRoom(this.info);
     }
 }
