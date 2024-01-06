@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8496758498076037250}
   - component: {fileID: 7475209060072412316}
-  - component: {fileID: 1123386078706424105}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -28,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,15 +54,3 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1123386078706424105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286975099079354276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3a98729c3cb25443bd8c57b8b84dd90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
