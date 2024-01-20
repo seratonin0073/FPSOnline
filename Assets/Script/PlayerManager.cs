@@ -20,7 +20,8 @@ public class PlayerManager : MonoBehaviour
 
     private void CreateController()
     {
+        Transform point = SpawnManager.Instance.GetSpawnPoint();
         PhotonNetwork.Instantiate(Path.Combine("PlayerController"),
-            Vector3.zero, Quaternion.identity);
+            point.position, point.rotation,0, new object[] { photonView.ViewID});
     }
 }
