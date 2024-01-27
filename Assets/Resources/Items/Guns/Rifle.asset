@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9028424f69f5640499acf3fb08453049, type: 3}
+  m_Script: {fileID: 11500000, guid: 13d0b80e5fbc4d74fb6b0dec1449e752, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  Name: Rifle
-  damage: 30
+  Name: RifleM14
+  Damage: 30

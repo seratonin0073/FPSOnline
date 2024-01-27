@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(playerCamera);
         }
+
     }
 
     void Update()
