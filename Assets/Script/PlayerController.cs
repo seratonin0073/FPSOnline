@@ -3,8 +3,12 @@ using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
+    [SerializeField] private float maxHealth = 100f;
+    private float currentHealth;
+    private PlayerManager playerManager;
+
     [SerializeField] Item[] items;
     private int itemIndex;
     private int previtemIndex = -1;
@@ -25,9 +29,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Awake()
     {
+        
+
         rb = GetComponent<Rigidbody>();
         pnView = GetComponent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        currentHealth = maxHealth;
+        playerManager = PhotonView.Find((int)pnView.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
     private void Start()
@@ -121,4 +130,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    private void UseItem()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            items[itemIndex].Use();
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        throw new System.NotImplementedException();
+    }
 }
