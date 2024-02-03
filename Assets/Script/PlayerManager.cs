@@ -2,8 +2,12 @@ using UnityEngine;
 using Photon.Pun;
 using System.IO;
 
+
 public class PlayerManager : MonoBehaviour
 {
+    
+    private GameObject controller;
+
     private PhotonView photonView;
     void Awake()
     {
@@ -21,7 +25,13 @@ public class PlayerManager : MonoBehaviour
     private void CreateController()
     {
         Transform point = SpawnManager.Instance.GetSpawnPoint();
-        PhotonNetwork.Instantiate(Path.Combine("PlayerController"),
+        controller = PhotonNetwork.Instantiate(Path.Combine("PlayerController"),
             point.position, point.rotation,0, new object[] { photonView.ViewID});
+    }
+
+    public void Die()
+    {
+        PhotonNetwork.Destroy(controller);
+        CreateController();
     }
 }

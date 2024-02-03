@@ -1,8 +1,14 @@
 using UnityEngine;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
+    [SerializeField] Item[] items;
+    private int itemIndex;
+    private int previtemIndex = -1;
+
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private float 
         walksSeed = 2f, 
@@ -30,6 +36,10 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(playerCamera);
         }
+        else
+        {
+            EquipItem(0);
+        }
 
     }
 
@@ -41,6 +51,7 @@ public class PlayerController : MonoBehaviour
         }
         Look();
         Movement();
+        SelectWeapon();
     }
 
     private void Look()
@@ -69,4 +80,45 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * 
             Time.fixedDeltaTime);
     }
+
+    private void SelectWeapon()
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if(Input.GetKeyDown((i+1).ToString()))
+            {
+                EquipItem(i);
+                break;
+            }
+        }
+    }
+
+    private void EquipItem(int index)
+    {
+        if (index == previtemIndex) return;
+        itemIndex = index;
+        items[index].itemGameObject.SetActive(true);
+        if (previtemIndex != -1)
+        {
+            items[previtemIndex].itemGameObject.SetActive(false);
+        }
+
+        previtemIndex = itemIndex;
+
+        if(pnView.IsMine)
+        {
+            Hashtable hash = new Hashtable();
+            hash.Add("index", itemIndex);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if(!pnView.IsMine && targetPlayer == pnView.Owner)
+        {
+            EquipItem((int)changedProps["index"]);
+        }
+    }
+
 }
