@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         mouseSensetive = 150,
         jumpForce = 3f,
         smoothTime;
+
     private float verticalLookRotation;
     private bool isGrounded = false;
     private Vector3 smoothMove;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         Look();
         Movement();
         SelectWeapon();
+        UseItem();
     }
 
     private void Look()
@@ -140,6 +142,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     public void TakeDamage(float damage)
     {
-        throw new System.NotImplementedException();
+        pnView.RPC("RPC_Damage", RpcTarget.All, damage);
+    }
+    
+    [PunRPC]
+    void RPC_Damage(float damage)
+    {
+        if (!pnView.IsMine) return;
+        currentHealth -= damage;
+        Debug.Log("CurrentHP: " + currentHealth.ToString());
+
+        if (currentHealth <= 0)
+        {
+            playerManager.Die();
+        }
     }
 }

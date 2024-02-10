@@ -685,6 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0aa4003e047f4d41a2bc769d4887ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
   items:
   - {fileID: 704637464578475169}
   - {fileID: 1129346370531177158}
