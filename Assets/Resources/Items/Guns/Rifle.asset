@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   Name: RifleM14
-  Damage: 30
+  Damage: 100

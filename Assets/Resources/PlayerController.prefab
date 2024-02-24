@@ -192,6 +192,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 57c735015c61032469404211e352decb, type: 2}
   itemGameObject: {fileID: 7647052070635674501}
+  bulletPrefab: {fileID: 1850116858658707869, guid: 24ed05180772cc2409d72a3a40b07000, type: 3}
+  gunAnimator: {fileID: 0}
+  shootFX: {fileID: 0}
+  muzzle: {fileID: 0}
   myCam: {fileID: 7575448602526549201}
 --- !u!1 &1714386689400908615
 GameObject:
@@ -296,6 +300,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: c60182bf471cf6344a0d0429d0eca952, type: 2}
   itemGameObject: {fileID: 2516747956032841217}
+  bulletPrefab: {fileID: 1850116858658707869, guid: 24ed05180772cc2409d72a3a40b07000, type: 3}
+  gunAnimator: {fileID: 0}
+  shootFX: {fileID: 0}
+  muzzle: {fileID: 0}
   myCam: {fileID: 7575448602526549201}
 --- !u!1 &2516747956032841217
 GameObject:
@@ -633,7 +641,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &-217053839456242536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,7 +697,7 @@ MonoBehaviour:
   items:
   - {fileID: 704637464578475169}
   - {fileID: 1129346370531177158}
-  playerCamera: {fileID: 8224726244656329688}
+  playerCamera: {fileID: 7134078924875705599}
   walksSeed: 4
   sprintSpeed: 6
   mouseSensetive: 550

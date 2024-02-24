@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     {
         if(!pnView.IsMine)
         {
-            Destroy(playerCamera);
+            Destroy(playerCamera.GetComponentInChildren<Camera>().gameObject);
         }
         else
         {
