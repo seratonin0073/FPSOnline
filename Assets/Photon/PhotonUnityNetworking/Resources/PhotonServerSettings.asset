@@ -42,6 +42,7 @@ MonoBehaviour:
   - RPC_Damage
   - RPC_SHOOT
   - RPC_Shoot
+  - ShootEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

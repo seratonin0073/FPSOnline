@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
+using TMPro;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
@@ -28,6 +29,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     private Rigidbody rb;
     private PhotonView pnView;
 
+    public TMP_Text NicknameText;
+    private Camera camera;
+
     void Awake()
     {
         
@@ -42,7 +46,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     private void Start()
     {
-        if(!pnView.IsMine)
+        camera = Camera.main;
+        Debug.Log(camera);
+        if (!pnView.IsMine)
         {
             Destroy(playerCamera.GetComponentInChildren<Camera>().gameObject);
         }
@@ -50,12 +56,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
             EquipItem(0);
         }
+        NicknameText.text = pnView.Owner.NickName;
 
     }
 
     void Update()
     {
-        if(!pnView.IsMine)
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
+        NicknameText.transform.parent.LookAt(camera.transform);
+        
+
+        if (!pnView.IsMine)
         {
             return;
         }
@@ -63,6 +77,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         Movement();
         SelectWeapon();
         UseItem();
+        
+
+        
     }
 
     private void Look()

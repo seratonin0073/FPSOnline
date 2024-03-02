@@ -31,12 +31,12 @@ public class ShootGun : Gun
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
             hit.collider.GetComponent<IDamagable>()?.TakeDamage(((GunInfo)itemInfo).Damage);
-            //myPv.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
-            ShootEffect(hit.point, hit.normal);
+            myPv.RPC("ShootEffect", RpcTarget.All, hit.point, hit.normal);
+            //ShootEffect(hit.point, hit.normal);
         }
     }
 
-    //[PunRPC]
+    [PunRPC]
     void ShootEffect(Vector3 hitPoint, Vector3 hitNormal)
     {
         Collider[] coll = Physics.OverlapSphere(hitPoint, 0.1f);
@@ -46,6 +46,7 @@ public class ShootGun : Gun
                 PhotonNetwork.Instantiate(Path.Combine("PistolBulletImpact"), hitPoint, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletPrefab.transform.rotation);
             bulletImp.transform.SetParent(coll[0].transform);
             bulletImp.SetActive(true);
+            Destroy(bulletImp, 2f);
         }
     }
 }
