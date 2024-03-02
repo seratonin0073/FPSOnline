@@ -37,13 +37,13 @@ public class ShootGun : Gun
     }
 
     //[PunRPC]
-    void ShootEffect(Vector3 hitPoint, Vector3 hinNormal)
+    void ShootEffect(Vector3 hitPoint, Vector3 hitNormal)
     {
         Collider[] coll = Physics.OverlapSphere(hitPoint, 0.1f);
         if(coll.Length != 0)
         {
             GameObject bulletImp = 
-                PhotonNetwork.Instantiate(Path.Combine("PistolBulletImpact"), hitPoint, Quaternion.LookRotation(hitPoint, Vector3.up) * bulletPrefab.transform.rotation);
+                PhotonNetwork.Instantiate(Path.Combine("PistolBulletImpact"), hitPoint, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletPrefab.transform.rotation);
             bulletImp.transform.SetParent(coll[0].transform);
             bulletImp.SetActive(true);
         }
