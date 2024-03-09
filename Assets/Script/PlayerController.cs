@@ -77,9 +77,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         Movement();
         SelectWeapon();
         UseItem();
-        
-
-        
     }
 
     private void Look()

@@ -197,6 +197,7 @@ MonoBehaviour:
   shootFX: {fileID: 0}
   muzzle: {fileID: 0}
   myCam: {fileID: 7575448602526549201}
+  impPrefab: {fileID: 1850116858658707869, guid: 24ed05180772cc2409d72a3a40b07000, type: 3}
 --- !u!1 &1714386689400908615
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +306,7 @@ MonoBehaviour:
   shootFX: {fileID: 0}
   muzzle: {fileID: 0}
   myCam: {fileID: 7575448602526549201}
+  impPrefab: {fileID: 1850116858658707869, guid: 24ed05180772cc2409d72a3a40b07000, type: 3}
 --- !u!1 &2516747956032841217
 GameObject:
   m_ObjectHideFlags: 0

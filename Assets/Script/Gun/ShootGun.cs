@@ -9,6 +9,7 @@ public class ShootGun : Gun
 {
     private PhotonView myPv;
     [SerializeField] Camera myCam;
+    public GameObject impPrefab;
 
     private void Awake()
     {
@@ -32,7 +33,6 @@ public class ShootGun : Gun
         {
             hit.collider.GetComponent<IDamagable>()?.TakeDamage(((GunInfo)itemInfo).Damage);
             myPv.RPC("ShootEffect", RpcTarget.All, hit.point, hit.normal);
-            //ShootEffect(hit.point, hit.normal);
         }
     }
 
@@ -42,8 +42,8 @@ public class ShootGun : Gun
         Collider[] coll = Physics.OverlapSphere(hitPoint, 0.1f);
         if(coll.Length != 0)
         {
-            GameObject bulletImp = 
-                PhotonNetwork.Instantiate(Path.Combine("PistolBulletImpact"), hitPoint, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletPrefab.transform.rotation);
+            GameObject bulletImp =
+                Instantiate(impPrefab, hitPoint, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletPrefab.transform.rotation);
             bulletImp.transform.SetParent(coll[0].transform);
             bulletImp.SetActive(true);
             Destroy(bulletImp, 2f);
