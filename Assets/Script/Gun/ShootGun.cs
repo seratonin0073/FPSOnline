@@ -14,8 +14,6 @@ public class ShootGun : Gun
     private void Awake()
     {
         myPv = GetComponent<PhotonView>();
-        gunAnimator = GetComponentInChildren<Animator>();
-
     }
 
   
@@ -27,6 +25,7 @@ public class ShootGun : Gun
 
     private void Shoot()
     {
+        gunAnimator.Play("ShootAnim");
         Ray ray = myCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         ray.origin = myCam.transform.position;
         if(Physics.Raycast(ray, out RaycastHit hit))
@@ -39,6 +38,9 @@ public class ShootGun : Gun
     [PunRPC]
     void ShootEffect(Vector3 hitPoint, Vector3 hitNormal)
     {
+        GameObject tempfx = Instantiate(shootFX, muzzle.position, Quaternion.identity);
+        tempfx.transform.SetParent(muzzle);
+
         Collider[] coll = Physics.OverlapSphere(hitPoint, 0.1f);
         if(coll.Length != 0)
         {
@@ -49,4 +51,8 @@ public class ShootGun : Gun
             Destroy(bulletImp, 2f);
         }
     }
+
+    
+
+
 }
