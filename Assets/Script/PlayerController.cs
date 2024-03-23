@@ -3,6 +3,7 @@ using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     private int itemIndex;
     private int previtemIndex = -1;
 
+    [SerializeField] Slider healthBar;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private float 
         walksSeed = 2f, 
@@ -34,13 +36,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     void Awake()
     {
-        
-
         rb = GetComponent<Rigidbody>();
         pnView = GetComponent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
 
         currentHealth = maxHealth;
+
+        
+
         playerManager = PhotonView.Find((int)pnView.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         Debug.Log(camera);
         if (!pnView.IsMine)
         {
+
             Destroy(playerCamera.GetComponentInChildren<Camera>().gameObject);
         }
         else
@@ -57,6 +61,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
             EquipItem(0);
         }
         NicknameText.text = pnView.Owner.NickName;
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
 
     }
 
@@ -165,6 +172,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (!pnView.IsMine) return;
         currentHealth -= damage;
         Debug.Log("CurrentHP: " + currentHealth.ToString());
+        healthBar.value = currentHealth;    
 
         if (currentHealth <= 0)
         {
