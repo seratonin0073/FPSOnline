@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
+    [SerializeField] private Animator visualDamageAnimator;
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     private PlayerManager playerManager;
@@ -172,7 +173,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (!pnView.IsMine) return;
         currentHealth -= damage;
         Debug.Log("CurrentHP: " + currentHealth.ToString());
-        healthBar.value = currentHealth;    
+        healthBar.value = currentHealth;
+
+        visualDamageAnimator.Play("takeDamage");
 
         if (currentHealth <= 0)
         {
